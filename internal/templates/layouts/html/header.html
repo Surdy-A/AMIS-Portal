@@ -1,0 +1,37 @@
+{{ define "templates/layouts/html/header" }}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+        <title>{{ .title }} - {{ .APP_NAME }}</title>
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="assets/css/app.min.css" />
+  <link rel="stylesheet" href="assets/bundles/chocolat/dist/css/chocolat.css">
+  <link rel="stylesheet" href="assets/bundles/prism/prism.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="assets/css/custom.css" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/img/favicon.ico"
+    />
+  </head>
+
+  <body>
+    <div class="loader"></div>
+    <div id="app">
+      <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        {{ end }}
+      </div>
+    </div>
+  </body>
+</html>

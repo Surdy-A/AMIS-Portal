@@ -1,0 +1,15 @@
+app:
+  name: "Amis Portal"
+
+server:
+  host: "localhost"
+  port: "8080"
+
+db:
+  username: root
+  password: Goodman8349**
+  host: 127.0.0.1
+  port: 3306
+  postgresport: 9920 
+  pusername: postgres
+  name: amis_db

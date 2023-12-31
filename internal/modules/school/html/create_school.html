@@ -1,0 +1,381 @@
+{{ define "modules/school/html/create_school" }} 
+{{ template "templates/layouts/html/header" .}} 
+{{ template "templates/layouts/html/navbar" .}} 
+{{ template "templates/layouts/html/sidebar" .}}
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row"></div>
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+          <form
+            method="POST"
+            action="/schools/add"
+            class="needs-validation"
+            novalidate=""
+          >
+            <div class="card-header">
+              <h4>Register School</h4>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="school_name">School Name</label>
+                <input
+                  id="school_name"
+                  type="text"
+                  class="form-control"
+                  name="school_name"
+                  placeholder="First Name"
+                  value="{{ range .OLD.school_name }}{{.}}{{end}}"
+                  required=""
+                />
+                <span class="text-danger">{{ .ERRORS.schoolname }}</span>
+              </div>
+              <div class="form-group">
+                <label for="address">Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  class="form-control"
+                  id="adrress"
+                  placeholder="address"
+                  value="{{ range .OLD.address }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.address }}</div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="School Email"
+                  value="{{ range .OLD.email }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.email }}</div>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input
+                  type="text"
+                  name="phone"
+                  class="form-control"
+                  id="phone"
+                  placeholder="Phone"
+                  value="{{ range .OLD.phone }}{{.}}{{end}}"
+                  required=""
+                />
+                <span class="text-danger">{{ .ERRORS.phone }}</span>
+                <div class="invalid-feedback">{{ .ERRORS.phone }}</div>
+              </div>
+              <div class="form-group">
+                <label for="website">Website</label>
+                <input
+                  type="text"
+                  name="website"
+                  class="form-control"
+                  id="website"
+                  placeholder="Website"
+                  value="{{ range .OLD.website }}{{.}}{{end}}"
+                />
+                <div class="invalid-feedback">{{ .ERRORS.website }}</div>
+              </div>
+              <div class="form-group">
+                <label for="about">About</label>
+                <input
+                  type="text"
+                  name="about"
+                  class="form-control"
+                  id="about"
+                  placeholder="About School"
+                  value="{{ range .OLD.about }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.about }}</div>
+              </div>
+              <div class="form-group">
+                <label for="state_gov_status">State Government Status</label>
+                 <select class="form-control select2" id="state_gov_status" name="state_gov_status">
+                      {{ range $key, $value := .state_gov_status }}
+                      <option value="{{$value}}">{{$value}}</option>{{end}}
+                      </select>
+                <div class="invalid-feedback">{{ .ERRORS.stategovstatus }}</div>
+                <span class="text-danger">{{ .ERRORS.stategovstatus }}</span>
+              </div>
+              <div class="form-group">
+                <label for="federal_government_status">Federal Government Status</label>
+                      <select class="form-control select2" id="federal_government_status" name="federal_government_status">
+                      {{ range $key, $value := .federal_gov_status }}
+                      <option value="{{$value}}">{{$value}}</option>{{end}}
+                      </select>
+                <div class="invalid-feedback">{{ .ERRORS.federalgovernmentstatus }}</div>
+                <span class="text-danger">{{ .ERRORS.federalgovernmentstatus }}</span>
+              </div>
+              <div class="form-group">
+                <label for="about">CAC Number</label>
+                <input
+                  type="text"
+                  name="cac_reg_number"
+                  class="form-control"
+                  id="cac_reg_number"
+                  placeholder="CAC Number"
+                  value="{{.cac_reg_number}}"
+                />
+                <div class="invalid-feedback">{{ .ERRORS.cacregnumber }}</div>
+                <span class="text-danger">{{ .ERRORS.cacregnumber }}</span>
+              </div>
+               <div class="form-group">
+                <label for="about">Other Association</label>
+                <input
+                  type="text"
+                  name="association_details"
+                  class="form-control"
+                  id="association_details"
+                  placeholder="Association Details"
+                  value="{{.association_details}}"
+                />
+                <div class="invalid-feedback">{{ .ERRORS.associationdetails }}</div>
+                <span class="text-danger">{{ .ERRORS.associationdetails }}</span>
+               <div class="form-group">
+                <label for="about">School Code</label>
+                <input
+                  type="text"
+                  name="school_code"
+                  class="form-control"
+                  id="school_code"
+                  placeholder="School Code"
+                  value="{{.school_code}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.schoolcode }}</div>
+                <span class="text-danger">{{ .ERRORS.schoolcode }}</span>
+              </div>
+              <div class="form-group">
+                <label for="about">LGA Code</label>
+                <input
+                  type="text"
+                  name="lga_code"
+                  class="form-control"
+                  id="lga_code"
+                  placeholder="LGA Code"
+                  value="{{.lga_code}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.lgacode }}</div>
+                <span class="text-danger">{{ .ERRORS.lgacode }}</span>
+              </div>
+             
+              <div class="form-group">
+                      <label for="ownerships">Ownership</label>
+                      <select class="form-control select2" id="ownership" name="ownership">
+                      {{ range $key, $value := .ownerships }}
+                      <option id="ownership"  value="{{$value}}" name="ownership">{{$value}}</option>{{end}}
+                      </select>
+                    </div>
+                <div class="invalid-feedback">{{ .ERRORS.ownership }}</div>
+                <span class="text-danger">{{ .ERRORS.ownership }}</span>
+              </div>
+              <div class="form-group">
+                <label for="logo">Logo</label>
+                <input
+                  type="text"
+                  name="logo"
+                  class="form-control"
+                  id="logo"
+                  placeholder="Logo"
+                  value="{{ range .OLD.logo }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.logo }}</div>
+                <span class="text-danger">{{ .ERRORS.logo }}</span>
+              </div>
+              <div class="form-group">
+                <label for="lga">LGA</label>
+                 <select class="form-control select2" id="lga" name="lga">
+                  {{ range $key, $value := .LGANames }}
+                  <option value="{{$value}}">{{$value}}</option>{{end}}
+                  </select>
+                <div class="invalid-feedback">{{ .ERRORS.lga }}</div>
+                <span class="text-danger">{{ .ERRORS.lga }}</span>
+              </div>
+              <div class="form-group">
+                <label for="school type">School Type</label>
+                <select
+                id="school_types"
+                  class="form-control select-width"
+                  name="school_types"
+                  multiple="multiple"
+                  placeholder="School Type"
+                  size="5"
+                  value="{{ range .OLD.school_types }}{{.}}{{end}}"
+                >
+                  {{ range $key, $value := .school_type_lists }}
+                  <option id="{{$key}}" value="{{$value}}">{{$value}}</option>
+                  {{ end }}
+                </select>
+                <span class="text-danger">{{ .ERRORS.schooltypes }}</span>
+              </div>
+              <div class="form-group">
+                <label for="school type">School Operation Type</label>
+                <select
+                  id="school_operation_types"
+                  class="form-control select-width"
+                  name="school_operation_types"
+                  multiple="multiple"
+                  placeholder="School Operation Type"
+                  size="5"
+                  value="{{ range .OLD.school_operation_types }}{{.}}{{end}}"
+                >
+                  {{ range $key, $value := .school_operation_type_lists }}
+                  <option id="{{$key}}" value="{{$value}}">{{$value}}</option>
+                  {{ end }}
+                </select>
+                <span class="text-danger">{{ .ERRORS.schooloperationtypes }}</span>
+              </div>
+              <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+
+            <div class="settingSidebar">
+              <a href="javascript:void(0)" class="settingPanelToggle">
+                <i class="fa fa-spin fa-cog"></i>
+              </a>
+              <div class="settingSidebar-body ps-container ps-theme-default">
+                <div class="fade show active">
+                  <div class="setting-panel-header">Setting Panel</div>
+                  <div class="p-15 border-bottom">
+                    <h6 class="font-medium m-b-10">Select Layout</h6>
+                    <div class="selectgroup layout-color w-50">
+                      <label class="selectgroup-item">
+                        <input
+                          type="radio"
+                          name="value"
+                          value="1"
+                          class="selectgroup-input-radio select-layout"
+                          checked
+                        />
+                        <span class="selectgroup-button">Light</span>
+                      </label>
+                      <label class="selectgroup-item">
+                        <input
+                          type="radio"
+                          name="value"
+                          value="2"
+                          class="selectgroup-input-radio select-layout"
+                        />
+                        <span class="selectgroup-button">Dark</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="p-15 border-bottom">
+                    <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                    <div class="selectgroup selectgroup-pills sidebar-color">
+                      <label class="selectgroup-item">
+                        <input
+                          type="radio"
+                          name="icon-input"
+                          value="1"
+                          class="selectgroup-input select-sidebar"
+                        />
+                        <span
+                          class="selectgroup-button selectgroup-button-icon"
+                          data-toggle="tooltip"
+                          data-original-title="Light Sidebar"
+                          ><i class="fas fa-sun"></i
+                        ></span>
+                      </label>
+                      <label class="selectgroup-item">
+                        <input
+                          type="radio"
+                          name="icon-input"
+                          value="2"
+                          class="selectgroup-input select-sidebar"
+                          checked
+                        />
+                        <span
+                          class="selectgroup-button selectgroup-button-icon"
+                          data-toggle="tooltip"
+                          data-original-title="Dark Sidebar"
+                          ><i class="fas fa-moon"></i
+                        ></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="p-15 border-bottom">
+                    <h6 class="font-medium m-b-10">Color Theme</h6>
+                    <div class="theme-setting-options">
+                      <ul class="choose-theme list-unstyled mb-0">
+                        <li title="white" class="active">
+                          <div class="white"></div>
+                        </li>
+                        <li title="cyan">
+                          <div class="cyan"></div>
+                        </li>
+                        <li title="black">
+                          <div class="black"></div>
+                        </li>
+                        <li title="purple">
+                          <div class="purple"></div>
+                        </li>
+                        <li title="orange">
+                          <div class="orange"></div>
+                        </li>
+                        <li title="green">
+                          <div class="green"></div>
+                        </li>
+                        <li title="red">
+                          <div class="red"></div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="p-15 border-bottom">
+                    <div class="theme-setting-options">
+                      <label class="m-b-0">
+                        <input
+                          type="checkbox"
+                          name="custom-switch-checkbox"
+                          class="custom-switch-input"
+                          id="mini_sidebar_setting"
+                        />
+                        <span class="custom-switch-indicator"></span>
+                        <span class="control-label p-l-10">Mini Sidebar</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="p-15 border-bottom">
+                    <div class="theme-setting-options">
+                      <label class="m-b-0">
+                        <input
+                          type="checkbox"
+                          name="custom-switch-checkbox"
+                          class="custom-switch-input"
+                          id="sticky_header_setting"
+                        />
+                        <span class="custom-switch-indicator"></span>
+                        <span class="control-label p-l-10">Sticky Header</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                    <a
+                      href="#"
+                      class="btn btn-icon icon-left btn-primary btn-restore-theme"
+                    >
+                      <i class="fas fa-undo"></i> Restore Default
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{{ template "templates/layouts/html/footer" .}} {{ end }}
