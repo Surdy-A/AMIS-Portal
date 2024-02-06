@@ -54,6 +54,33 @@ func (controller *Controller) CreateSchool(c *gin.Context) {
 	})
 }
 
+func (controller *Controller) UpdateSchool(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		html.Render(c, http.StatusInternalServerError,
+			"templates/errors/html/500",
+			gin.H{"title": "Server error", "message": "error converting the id"})
+		return
+	}
+
+	school, err := controller.schoolService.GetSchool(id)
+	if err != nil {
+		html.Render(c, http.StatusNotFound, "templates/errors/html/404", gin.H{"title": "Page not found", "message": err.Error()})
+		return
+	}
+
+	html.Render(c, http.StatusOK, "modules/school/html/update_school", gin.H{
+		"title":                       "Update School",
+		"school_type_lists":           models.SchoolTypeList,
+		"school_operation_type_lists": models.SchoolOperationTypeLists,
+		"state_gov_status":            models.StateGovStatusList,
+		"federal_gov_status":          models.FederalGovStatusList,
+		"ownerships":                  models.Ownerships,
+		"LGANames":                    models.LGAName,
+		"school":                      school,
+	})
+}
+
 func (controller *Controller) Add(c *gin.Context) {
 	user := helpers.Auth(c)
 
@@ -112,22 +139,37 @@ func (controller *Controller) DeleteSchool(c *gin.Context) {
 	c.Redirect(http.StatusFound, ("/"))
 }
 
-// func (controller *Controller) EditSchool(c *gin.Context) {
-// 	id, err := strconv.Atoi(c.Param("id"))
-// 	if err != nil {
-// 		html.Render(c, http.StatusInternalServerError,
-// 			"templates/errors/html/500",
-// 			gin.H{"title": "Server error", "message": "error converting the id"})
-// 		return
-// 	}
+func (controller *Controller) EditSchool(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		html.Render(c, http.StatusInternalServerError,
+			"templates/errors/html/500",
+			gin.H{"title": "Server error", "message": "error converting the id"})
+		return
+	}
 
-// 	err = controller.schoolService.EditSchool(id)
+	// validate the request
+	var sch models.School
+	// This will infer what binder to use depending on the content-type header.
+	if err := c.ShouldBind(&sch); err != nil {
+		errors.Init()
+		errors.SetFromErrors(err)
+		sessions.Set(c, "errors", converters.MapToString(errors.Get()))
 
-// 	if err != nil {
-// 		c.Redirect(http.StatusFound, "/schools")
-// 		fmt.Println(err)
-// 		return
-// 	}
+		old.Init()
+		old.Set(c)
+		sessions.Set(c, "old", converters.UrlValuesToString(old.Get()))
 
-// 	c.Redirect(http.StatusFound, fmt.Sprintf("/"))
-// }
+		c.Redirect(http.StatusFound, "/schools/edit/{{id}}")
+		return
+	}
+	err = controller.schoolService.EditSchool(id, sch)
+
+	if err != nil {
+		c.Redirect(http.StatusFound, "/schools")
+		fmt.Println(err)
+		return
+	}
+
+	c.Redirect(http.StatusFound, fmt.Sprintf("/"))
+}

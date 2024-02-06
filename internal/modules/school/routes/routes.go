@@ -17,7 +17,8 @@ func Routes(router *gin.Engine) {
 	{
 		authGroup.GET("/create", schoolController.CreateSchool)
 		authGroup.POST("/add", schoolController.Add)
-		//authGroup.PUT("/eidt/:id", schoolController.EditSchool)
+		authGroup.GET("/edit/:id", schoolController.UpdateSchool)
+		authGroup.POST("/update/:id", schoolController.EditSchool)
 		authGroup.GET("/delete/:id", schoolController.DeleteSchool)
 	}
 }

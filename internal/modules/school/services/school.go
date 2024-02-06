@@ -16,6 +16,7 @@ type SchoolServiceInterface interface {
 	StoreAsUser(request requests.StoreRequest, user UserResponse.User) (SchoolResponse.School, error)
 	AddSchool(sch models.School, user UserResponse.User) (models.School, error)
 	DeleteSchool(id int) error
+	EditSchool(id int, school models.School) error
 }
 
 type SchoolService struct {
@@ -104,6 +105,16 @@ func (schoolService *SchoolService) AddSchool(sch models.School, user UserRespon
 
 func (schoolService *SchoolService) DeleteSchool(id int) error {
 	err := schoolService.schoolRepository.DeleteSchool(id)
+
+	if err != nil {
+		return errors.New("school not found")
+	}
+
+	return nil
+}
+
+func (schoolService *SchoolService) EditSchool(id int, school models.School) error {
+	err := schoolService.schoolRepository.EditSchool(id, school)
 
 	if err != nil {
 		return errors.New("school not found")

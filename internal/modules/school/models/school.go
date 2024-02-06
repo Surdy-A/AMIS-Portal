@@ -178,3 +178,28 @@ type School struct {
 	SchoolTypes             pq.StringArray `form:"school_types" json:"school_types" gorm:"type:text[]"`
 	SchoolOperationTypes    pq.StringArray `form:"school_operation_types" json:"school_operation_types" gorm:"type:text[]"`
 }
+
+type NameTransformFunc func(string) string
+type Admin struct {
+	// Title allows you to set a custom title for the admin panel. Default is "Admin".
+	Title string
+
+	// NameTransform is optional, and allows you to set a function that model names and field names are sent through
+	// to maintain compatibility with an ORM. For example, Beego ORM saves tables/columns in snake_case, while CamelCase
+	// is used in Go.
+	NameTransform NameTransformFunc
+
+	path     string
+	username string
+	password string
+	// sessions  map[string]*session
+	// urls      *urlConfig
+	// db        *sql.DB
+	// dialect   db.Dialect
+	// sourceDir string
+
+	// models         map[string]*model
+	// modelGroups    []*modelGroup
+	// registeredRels map[reflect.Type]*model
+	// missingRels    map[fields.RelationalField]reflect.Type
+}
