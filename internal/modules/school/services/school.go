@@ -30,8 +30,6 @@ func New() *SchoolService {
 }
 
 func (schoolService *SchoolService) GetSchools() []models.School {
-	//var schools []models.School
-
 	schools := schoolService.schoolRepository.GetSchools(400)
 	for _, school := range schools {
 		schools = append(schools, school)

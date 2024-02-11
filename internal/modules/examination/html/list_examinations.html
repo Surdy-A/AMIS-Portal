@@ -1,0 +1,102 @@
+{{ define "modules/school/html/list_schools" }} {{ template
+"templates/layouts/html/header" .}} {{ template "templates/layouts/html/navbar"
+.}} {{ template "templates/layouts/html/sidebar" .}} {{$auth := .AUTH.ID}}
+<!-- Main Content -->
+ <div class="main-content">
+        <section class="section">
+<div class="section-body">
+      <h2 class="section-title mt-0">List of Schools Registered with AMIS...</h2>
+      <p class="section-lead">
+        Do you want to join? <a href="/schools/create">Yes</a>.
+      </p>
+      <div class="row">
+        {{range .schools}}
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="card card-success">
+            <div class="card-header">
+              <h4 class="text-danger">
+                <a href="/school/{{.ID}}" schoolID="{{.ID}}" schoolName="{{.SchoolName}}" class="text-dark" id="schoolDetails">{{.SchoolName}}</a>
+              </h4>
+              <div class="card-header-action">
+                {{ if (eq $auth 0) }}
+                <a href="/school/{{.ID}}" class="btn btn-primary">More</a>
+                {{else}}
+                <a href="/school/{{.ID}}" class="btn btn-primary">More</a>
+                <div class="dropdown">
+                  <a
+                    href="#"
+                    data-toggle="dropdown"
+                    class="btn btn-warning dropdown-toggle"
+                    >Options</a
+                  >
+                  <div class="dropdown-menu">
+                    {{if eq .Paid false}}
+                    <a href="/school/{{.ID}}" class="dropdown-item has-icon"
+                      ><i class="fas fa-eye"></i> Pay</a
+                    >
+                    {{end}}
+                    <a href="/schools/edit/{{.ID}}" class="dropdown-item has-icon"
+                      ><i class="far fa-edit"></i> Edit</a
+                    >
+                    <div class="dropdown-divider"></div>
+                    <a
+                      href="/schools/delete/{{.ID}}"
+                     class="dropdown-item has-icon"
+                    >
+                      <i class="far fa-trash-alt"></i> Delete</a
+                    >
+                  </div>
+                </div>
+                {{end}}
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chocolat-parent">
+                <a
+                  href="assets/img/image-gallery/3.png"
+                  class="chocolat-image"
+                  title="{{.SchoolName}} Logo"
+                >
+                  <div data-crop-image="285">
+                    <img
+                      alt="image"
+                      src="assets/img/image-gallery/3.png"
+                      class="img-fluid"
+                    />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{end}}
+      </div>
+    </div>
+          </div>
+        <!-- basic modal -->
+        <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete School</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              <p id="modalTitle"></p>Do you want to delete school ?</p>
+              </div>
+              <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-primary"><a id="deleteID" href="/schools/delete/{{.ID}}" class="text-white">Yes</a></button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{ template "templates/layouts/html/footer" .}} {{ end }}
+  </div>
+  </section>
+
+</div>
