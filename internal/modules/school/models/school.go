@@ -177,6 +177,7 @@ type School struct {
 	Paid                    bool           `form:"other_association" json:"paid"`
 	SchoolTypes             pq.StringArray `form:"school_types" json:"school_types" gorm:"type:text[]"`
 	SchoolOperationTypes    pq.StringArray `form:"school_operation_types" json:"school_operation_types" gorm:"type:text[]"`
+	Quota                   int            `form:"quota" json:"quota"`
 }
 
 type NameTransformFunc func(string) string

@@ -44,6 +44,25 @@
                 />
                 <div class="invalid-feedback">{{ .ERRORS.zone }}</div>
               </div>
+  
+            <div class="form-group">
+                <label for="participants">Participants</label>
+                <select
+                id="participants"
+                  class="form-control select-width"
+                  name="participants"
+                  multiple="multiple"
+                  placeholder="Participants"
+                  size="10"
+                  value="{{ range .OLD.participants }}{{.}}{{end}}"
+                >
+                  {{ range $key, $value := .events }}
+                  <option id="{{$key}}" value="{{$value}}">{{$value}}</option>
+                  {{ end }}
+                </select>
+                <span class="text-danger">{{ .ERRORS.events }}</span>
+              </div>
+
               <div class="form-group">
                 <label for="school">School Phone Number</label>
                 <input
@@ -162,21 +181,14 @@
                 <div class="invalid-feedback">{{ .ERRORS.associationdetails }}</div>
                 <span class="text-danger">{{ .ERRORS.associationdetails }}</span>
                <div class="form-group">
-                <label for="about">School Code</label>
-                <input
-                  type="text"
-                  name="school_code"
-                  class="form-control"
-                  id="school_code"
-                  placeholder="School Code"
-                  value="{{.school_code}}"
-                  required=""
-                />
+                <label for="school_code">School</label>
+                 <select class="form-control select2" id="school_code" name="school_code">
+                  {{ range $key, $value := .schools }}
+                  <option value="{{$value.SchoolCode}}">{{$value.SchoolCode}} - {{$value.SchoolName}}</option>{{end}}
+                  </select>
                 <div class="invalid-feedback">{{ .ERRORS.schoolcode }}</div>
                 <span class="text-danger">{{ .ERRORS.schoolcode }}</span>
               </div>
-             
-             
               <div class="form-group">
                       <label for="ownerships">Ownership</label>
                       <select class="form-control select2" id="ownership" name="ownership">

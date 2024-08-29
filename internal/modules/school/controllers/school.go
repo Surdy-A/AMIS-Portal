@@ -173,3 +173,14 @@ func (controller *Controller) EditSchool(c *gin.Context) {
 
 	c.Redirect(http.StatusFound, fmt.Sprintf("/"))
 }
+
+func (controller *Controller) GetSchoolBySchoolCode(c *gin.Context) {
+	sc := c.Param("school_code")
+	school, err := controller.schoolService.GetSchoolBySchoolCode(sc)
+	if err != nil {
+		html.Render(c, http.StatusNotFound, "templates/errors/html/404", gin.H{"title": "Page not found", "message": err.Error()})
+		return
+	}
+
+	html.Render(c, http.StatusOK, "modules/school/html/school_detail", gin.H{"title": "Show school", "school": school})
+}

@@ -4,25 +4,30 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/Surdy-A/amis_portal/internal/modules/examination/models"
 	ExaminationService "github.com/Surdy-A/amis_portal/internal/modules/examination/services"
+	SchoolService "github.com/Surdy-A/amis_portal/internal/modules/school/services"
 	"github.com/Surdy-A/amis_portal/internal/modules/user/helpers"
 	"github.com/Surdy-A/amis_portal/pkg/converters"
 	"github.com/Surdy-A/amis_portal/pkg/errors"
 	"github.com/Surdy-A/amis_portal/pkg/html"
 	"github.com/Surdy-A/amis_portal/pkg/old"
 	"github.com/Surdy-A/amis_portal/pkg/sessions"
+	"github.com/Surdy-A/amis_portal/pkg/toast"
 	"github.com/gin-gonic/gin"
 )
 
 type Controller struct {
 	examinationService ExaminationService.ExaminationServiceInterface
+	schoolService      SchoolService.SchoolServiceInterface
 }
 
 func New() *Controller {
 	return &Controller{
 		examinationService: ExaminationService.New(),
+		schoolService:      SchoolService.New(),
 	}
 }
 
@@ -44,8 +49,9 @@ func (controller *Controller) GetExamination(c *gin.Context) {
 
 func (controller *Controller) CreateExamination(c *gin.Context) {
 	html.Render(c, http.StatusOK, "modules/examination/html/create_examination", gin.H{
-		"title":  "Create Examination",
-		"events": models.Events,
+		"title":   "Create Examination",
+		"events":  models.Events,
+		"schools": controller.schoolService.GetSchools(),
 	})
 }
 
@@ -98,6 +104,7 @@ func (controller *Controller) Add(c *gin.Context) {
 
 	// Create the article
 	examination, err := controller.examinationService.AddExamination(examination, user)
+	//gg, err := controller.Ge
 
 	// Check if there is any error on the examination creation
 	if err != nil {
@@ -167,5 +174,128 @@ func (controller *Controller) EditExamination(c *gin.Context) {
 		return
 	}
 
-	c.Redirect(http.StatusFound, fmt.Sprintf("/"))
+	c.Redirect(http.StatusFound, "/")
+}
+
+func (controller *Controller) GetExamRegistration(c *gin.Context) {
+	schools := controller.schoolService.GetSchools()
+	html.Render(c, http.StatusOK, "modules/examination/html/create_exam_registration", gin.H{
+		"title":      " Registration",
+		"exam_lists": models.ExaminationList,
+		"year":       time.Now().Year(),
+		"schools":    schools,
+	})
+}
+
+func (controller *Controller) GetCandidateInfo(c *gin.Context) {
+	schoolCode := c.Param("id")
+	fmt.Println(schoolCode)
+	school, err := controller.schoolService.GetSchoolBySchoolCode(schoolCode)
+	if err != nil {
+		html.Render(c, http.StatusNotFound, "templates/errors/html/404", gin.H{"title": "Page not found", "message": err.Error()})
+		return
+	}
+
+	examCode := c.Param("id")
+	candidates, err := controller.examinationService.GetExaminationsBySchoolCode(examCode)
+	if err != nil {
+		html.Render(c, http.StatusNotFound, "templates/errors/html/404", gin.H{"title": "Page not found", "message": err.Error()})
+		return
+	}
+
+	// noOfCandidates := len(candidates)
+	// percentage := noOfCandidates/20*100
+	html.Render(c, http.StatusOK, "modules/examination/html/candidate_info", gin.H{
+		"title":            "Candidate Information",
+		"school":           school,
+		"candidates":       candidates,
+		"no_of_candidates": len(candidates),
+		//"percentage":       percentage,
+	})
+}
+
+func (controller *Controller) CreateGradingExam(c *gin.Context) {
+	user := helpers.Auth(c)
+	// validate the request
+	var gExam models.GradingExamination
+	// This will infer what binder to use depending on the content-type header.
+	if err := c.ShouldBind(&gExam); err != nil {
+		errors.Init()
+		errors.SetFromErrors(err)
+		sessions.Set(c, "errors", converters.MapToString(errors.Get()))
+
+		old.Init()
+		old.Set(c)
+		sessions.Set(c, "old", converters.UrlValuesToString(old.Get()))
+
+		c.Redirect(http.StatusFound, "/examination/grading")
+		return
+	}
+	_, err := controller.examinationService.CreateGradingExam(gExam, user)
+	// Create the article
+	// Check if there is any error on the examination creation
+	if err != nil {
+		c.Redirect(http.StatusFound, "/examination/error")
+		return
+	}
+
+	toast.Success(c, "examination created successfully")
+	c.Redirect(http.StatusFound, fmt.Sprintf("/examination/candidate/%d", int(gExam.ID)))
+}
+
+func (controller *Controller) AddCandidate(c *gin.Context) {
+	schools := controller.schoolService.GetSchools()
+	html.Render(c, http.StatusOK, "modules/examination/html/add_candidate", gin.H{
+		"title":      "Add Candiadte",
+		"exam_lists": models.ExaminationList,
+		"lgas":       models.LGA,
+		"year":       time.Now().Year(),
+		"schools":    schools,
+		"gender":     models.Gender,
+	})
+}
+
+func (controller *Controller) CreateCandidate(c *gin.Context) {
+	user := helpers.Auth(c)
+	// validate the request
+	var gExam models.StudentGradingExamInfo
+	// This will infer what binder to use depending on the content-type header.
+	if err := c.ShouldBind(&gExam); err != nil {
+		errors.Init()
+		errors.SetFromErrors(err)
+		sessions.Set(c, "errors", converters.MapToString(errors.Get()))
+
+		old.Init()
+		old.Set(c)
+		sessions.Set(c, "old", converters.UrlValuesToString(old.Get()))
+
+		c.Redirect(http.StatusFound, "/examination/add-candidate")
+		return
+	}
+
+	// Create the article
+	_, err := controller.examinationService.CreateCandidate(gExam, user)
+	// Check if there is any error on the examination creation
+	if err != nil {
+		c.Redirect(http.StatusFound, "/examination/candidates")
+		fmt.Println(err)
+		return
+	}
+
+	c.Redirect(http.StatusFound, "/examination/add-candidate")
+}
+
+func (controller *Controller) DisplayError(c *gin.Context) {
+	html.Render(c, http.StatusOK, "modules/examination/html/error", gin.H{
+		"title": "Error",
+	})
+}
+
+func (controller *Controller) GetBlogPosts(c *gin.Context) {
+	posts := controller.examinationService.GetBlogPosts()
+
+	html.Render(c, http.StatusOK, "modules/examination/html/blog", gin.H{
+		"title": "Blog",
+		"posts": posts,
+	})
 }

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	schoolModel "github.com/Surdy-A/amis_portal/internal/modules/school/models"
+	examinationModel "github.com/Surdy-A/amis_portal/internal/modules/examination/models"
 	userModel "github.com/Surdy-A/amis_portal/internal/modules/user/models"
 	"github.com/Surdy-A/amis_portal/pkg/database"
 	"golang.org/x/crypto/bcrypt"
@@ -14,7 +15,7 @@ import (
 func Seed() {
 	db := database.Connection()
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte("secret"), 12)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte("Goodman8349**"), 12)
 	if err != nil {
 		log.Fatal("hash password error")
 		return
@@ -24,7 +25,7 @@ func Seed() {
 		FirstName: "Ajayi",
 		LastName:  "Sodiq",
 		Username:  "Surdyhey",
-		Email:     "sodiq@email.com",
+		Email:     "sodiq@gmail.com",
 		Password:  string(hashedPassword),
 	}
 	db.Create(&user) // pass pointer of data to Create
@@ -63,6 +64,20 @@ func Seed() {
 		}
 		db.Create(&school) // pass pointer of data to Create
 	}
+
+
+	blogPosts := examinationModel.Blog{
+		Model:      gorm.Model{},
+		UserID:     0,
+		User:       user,
+		Title:      "The oddest place you will find photo studios",
+		Post:       "A don't spirit gathered two under, lights said. May Multiply seasons you'll spirit tree morning hath first signs.",
+		Author:     "Ajayi Sodiq",
+		Image:      "http://jjjjjjj",
+		AuthorPost: "IT Engineer",
+	}
+	db.Create(&blogPosts) // pass pointer of data to Create
+
 
 	log.Println("Seeder done ..")
 }

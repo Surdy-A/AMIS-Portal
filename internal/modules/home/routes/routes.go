@@ -8,4 +8,7 @@ import (
 func Routes(router *gin.Engine) {
 	homeController := homeCtrl.New()
 	router.GET("/", homeController.Index)
+//	router.GET("/blog", homeController.GetBlogPost)
+	//	guestGroup.POST("/blog", userController.AddBlogPost)
+
 }

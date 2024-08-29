@@ -2,6 +2,7 @@ package services
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/Surdy-A/amis_portal/internal/modules/school/models"
 	SchoolRepository "github.com/Surdy-A/amis_portal/internal/modules/school/repositories"
@@ -17,6 +18,7 @@ type SchoolServiceInterface interface {
 	AddSchool(sch models.School, user UserResponse.User) (models.School, error)
 	DeleteSchool(id int) error
 	EditSchool(id int, school models.School) error
+	GetSchoolBySchoolCode(schoolCode string) (models.School, error)
 }
 
 type SchoolService struct {
@@ -31,17 +33,8 @@ func New() *SchoolService {
 
 func (schoolService *SchoolService) GetSchools() []models.School {
 	schools := schoolService.schoolRepository.GetSchools(400)
-	for _, school := range schools {
-		schools = append(schools, school)
-	}
 	return schools
 }
-
-// func (schoolService *SchoolService) GetStoriesArticles() ArticleResponse.Articles {
-// 	articles := articleService.articleRepository.List(6)
-
-// 	return ArticleResponse.ToArticles(articles)
-// }
 
 func (schoolService *SchoolService) GetSchool(id int) (models.School, error) {
 	school := schoolService.schoolRepository.GetSchool(id)
@@ -119,4 +112,14 @@ func (schoolService *SchoolService) EditSchool(id int, school models.School) err
 	}
 
 	return nil
+}
+
+func (schoolService *SchoolService) GetSchoolBySchoolCode(schoolCode string) (models.School, error) {
+	school := schoolService.schoolRepository.GetSchoolBySchoolCode(schoolCode)
+
+	if school.SchoolCode == "" {
+		return models.School{}, errors.New(fmt.Sprintf("school with school code: %s deosn't exit", schoolCode))
+	}
+
+	return school, nil
 }

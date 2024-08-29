@@ -11,6 +11,7 @@ import (
 type SchoolRepositoryInterface interface {
 	GetSchools(limit int) []models.School
 	GetSchool(id int) models.School
+	GetSchoolBySchoolCode(schoolCode string) models.School
 	Create(school models.School) models.School
 	DeleteSchool(id int) error
 	EditSchool(id int, school models.School) error
@@ -44,10 +45,7 @@ func (schoolRepo *SchoolRepository) GetSchool(id int) models.School {
 
 func (schoolRepo *SchoolRepository) GetSchools(limit int) []models.School {
 	var schools []models.School
-
-	schoolRepo.DB.Limit(limit).Joins("User").Find(&schools)
-
-	//schools = append(schools, sch)
+	schoolRepo.DB.Raw("SELECT * FROM schools").Scan(&schools)
 	return schools
 }
 
@@ -86,4 +84,10 @@ func (schoolRepo *SchoolRepository) EditSchool(id int, school models.School) err
 	})
 
 	return nil
+}
+
+func (schoolRepo *SchoolRepository) GetSchoolBySchoolCode(schoolCode string) models.School {
+	var school models.School
+	schoolRepo.DB.Unscoped().Table("schools").Where("school_code=?", schoolCode).Find(&school)
+	return school
 }

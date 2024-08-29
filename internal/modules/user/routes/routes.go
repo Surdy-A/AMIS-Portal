@@ -17,6 +17,9 @@ func Routes(router *gin.Engine) {
 
 		guestGroup.GET("/login", userController.Login)
 		guestGroup.POST("/login", userController.HandleLogin)
+
+		guestGroup.GET("/register-exam", userController.RegisterExam)
+		guestGroup.POST("/register-exam", userController.HandleRegisterExam)
 	}
 
 	authGroup := router.Group("/")

@@ -11,14 +11,24 @@ func Routes(router *gin.Engine) {
 	//router.GET("/schools", examinationController.GetSchools)
 	//schoolGroup := router.Group("/school")
 	//schoolGroup.GET("/:id", examinationController.GetSchool)
-
+	router.GET("blog", examinationController.GetBlogPosts)
 	authGroup := router.Group("/examination")
 	authGroup.Use(middlewares.IsAuth())
 	{
 		authGroup.GET("/create", examinationController.CreateExamination)
 		authGroup.POST("/add", examinationController.Add)
 		authGroup.GET("/edit/:id", examinationController.UpdateExamination)
-		authGroup.POST("/update/:id", examinationController.EditExamination)
+		authGroup.PUT("/update/:id", examinationController.EditExamination)
 		authGroup.GET("/delete/:id", examinationController.DeleteExamination)
+		authGroup.GET("/grading", examinationController.GetExamRegistration)    //for get templatec
+		authGroup.POST("/grading-add", examinationController.CreateGradingExam) //for post method
+		authGroup.GET("/candidates/:id", examinationController.GetCandidateInfo)
+		authGroup.GET("/add-candidate", examinationController.AddCandidate)        //for add candidate get templatec
+		authGroup.POST("/create-candidate", examinationController.CreateCandidate) //for  post method
+		authGroup.GET("/error", examinationController.DisplayError)
+
+		//	authGroup.POST("/add", examinationController.CandidateInfo)
+		//authGroup.POST("/", examinationController.CreateExamRegistration) // to register exam
+
 	}
 }

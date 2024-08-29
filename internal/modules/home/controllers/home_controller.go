@@ -21,9 +21,7 @@ func New() *Controller {
 
 func (controller *Controller) Index(c *gin.Context) {
 	html.Render(c, http.StatusOK, "modules/home/html/index", gin.H{
-		"title": "Home page",
-		//"featured": controller.articleService.GetFeaturedArticles(),
-		//	"stories":  controller.articleService.GetStoriesArticles(),
+		"title":   "Home page",
 		"flashes": sessions.Flash(c, "old"),
 	})
 }

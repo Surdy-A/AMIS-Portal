@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="04c8690d-d8b7-4ff9-a2e4-4f7612778c86" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/database/migration/migrate.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/database/migration/migrate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/database/seeder/seed.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/database/seeder/seed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/examination/controllers/examination.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/examination/controllers/examination.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/examination/models/examination.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/examination/models/examination.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/examination/repositories/examination.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/examination/repositories/examination.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/examination/routes/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/examination/routes/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/examination/services/examination.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/examination/services/examination.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/school/controllers/school.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/school/controllers/school.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/school/models/school.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/school/models/school.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/school/repositories/school.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/school/repositories/school.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/school/services/school.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/school/services/school.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/user/controllers/auth_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/user/controllers/auth_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/user/routes/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/user/routes/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/templates/layouts/html/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/templates/layouts/html/head.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/templates/layouts/html/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/templates/layouts/html/sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/static/load.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/static/load.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../Program Files/Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="true" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2j8udp1KVOR7CIMVUIVaEIHTI1w" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/HOME/golang/amis_portal&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="amis_portal" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="amis_portal" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="amis_portal" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="amis_portal" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="04c8690d-d8b7-4ff9-a2e4-4f7612778c86" name="Changes" comment="" />
+      <created>1720781116820</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720781116820</updated>
+      <workItem from="1720781119646" duration="3169000" />
+      <workItem from="1720784847655" duration="660000" />
+      <workItem from="1720785541413" duration="91000" />
+      <workItem from="1720785680677" duration="960000" />
+      <workItem from="1721124447949" duration="815000" />
+      <workItem from="1722570403882" duration="507000" />
+      <workItem from="1724423785778" duration="306000" />
+      <workItem from="1724424165996" duration="265000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>false</integration-enabled>
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
