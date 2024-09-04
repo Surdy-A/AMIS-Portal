@@ -1,44 +1,25 @@
-{{ define "modules/examination/html/blog" }} {{ template
+{{ define "modules/examination/html/blog_detail" }} {{ template
 "templates/layouts/html/header" .}} {{ template "templates/layouts/html/navbar"
 .}} {{ template "templates/layouts/html/sidebar" .}}
 <div class="main-content">
-
-   <section class="section">
-          <div class="section-body">
-            
-            <h2 class="section-title">AMIS NEWS</h2>
-            <div class="row">
-              {{range .posts}}
-              <div class="col-12 col-md-4 col-lg-4">
-                <article class="article article-style-c">
-                  <div class="article-header">
-                    <div class="article-image" data-background="assets/img/blog/img13.png">
-                    </div>
-                  </div>
-                  <div class="article-details">
-                    <div class="article-category"><a href="#">News</a>
-                      <div class="bullet"></div> <a href="#">3 DAYS</a>
-                    </div>
-                    <div class="article-title">
-                      <h2><a href="/blog/{{.ID}}">{{.Title}}</a></h2>
-                    </div>
-                    <p>{{.Post}}</p>
-                    <div class="article-user">
-                      <img alt="image" src="assets/img/users/user-1.png">
-                      <div class="article-user-details">
-                        <div class="user-detail-name">
-                          <a href="#">{{.Author}}</a>
-                        </div>
-                        <div class="text-job">{{.AuthorPost}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              </div>
-              {{end}}
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="card">
+            <div class="card-header">
+            <img alt="blog image" src="{{.post.Image}}" /><br />
+              <h4>{{.post.Title}}</h4>
+            </div>
+            <div class="card-body">
+              <p class="lead mt-4">
+                {{.post.Post}}
             </div>
           </div>
-        </section>
+        </div>
+      </div>
+    </div>
+  </section>
   <div class="settingSidebar">
     <a href="javascript:void(0)" class="settingPanelToggle">
       <i class="fa fa-spin fa-cog"></i>

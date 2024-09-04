@@ -8,6 +8,7 @@ func LoadStatic(router *gin.Engine) {
 	router.Static("/assets", "./assets")
 	router.Static("/schools/assets", "./assets")
 	router.Static("/school/assets", "./assets")
+	router.Static("/blog/assets", "./assets")
 	router.Static("/schools/edit/assets", "./assets")
 	//examination route
 	router.Static("/examinations/assets", "./assets")

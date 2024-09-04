@@ -48,7 +48,6 @@ type Examination struct {
 	HeadTeacherName    string         `form:"head_teacher_name" json:"HeadTeacherName"`
 	LGA                string         `form:"lga" json:"lga"`
 	Paid               bool           `form:"other_association" json:"paid"`
-	Participants       Participant    `form:"participants" json:"participants" gorm:"type:text[]"`
 	Category           pq.StringArray `form:"category" json:"category" gorm:"type:text[]"`
 }
 
@@ -938,4 +937,34 @@ type Blog struct {
 	Author     string `form:"author" json:"author"`
 	Image      string `form:"image" json:"image" binding:"required"`
 	AuthorPost string `form:"author_post" json:"author_post"`
+}
+
+type PrimaryCompetition struct {
+	Quran        string `form:"quran" json:"quran"`
+	Quiz_1       string `form:"quiz_1" json:"quiz_1"`
+	Quiz_2       string `form:"quiz_2" json:"quiz_2"`
+	Khutbah      string `form:"khutbah" json:"khutbah"`
+	Exhibition_1 string `form:"exhibition_1" json:"exhibition_1"`
+	Exhibition_2 string `form:"exhibition_2" json:"exhibition_2"`
+	Examination
+}
+
+type JSSCategory struct {
+	Quran           string `form:"quran" json:"quran"`
+	PickAndTalk     string `form:"pick_and_talk" json:"pick_and_talk"`
+	Quiz_1          string `form:"quiz_1" json:"quiz_1"`
+	Quiz_2          string `form:"quiz_2" json:"quiz_2"`
+	CreativeWriting string `form:"creative_writing" json:"creative_writing"`
+	Calligraphy     string `form:"Calligraphy" json:"Calligraphy"`
+}
+
+type SSSCategory struct {
+	Quran        map[string]string `form:"quran" json:"quran"`
+	Quiz_1       map[string]string `form:"quiz_1" json:"quiz_1"`
+	Quiz_2       map[string]string `form:"quiz_2" json:"quiz_2"`
+	Debate_1     map[string]string `form:"debate_1" json:"debate_1"`
+	Debate_2     map[string]string `form:"debate_2" json:"debate_2"`
+	EssayWriting map[string]string `form:"essay_writing" json:"essay_writing"`
+	Exhibition_1 map[string]string `form:"exhibition_1" json:"exhibition_1"`
+	Exhibition_2 map[string]string `form:"exhibition_2" json:"exhibition_2"`
 }

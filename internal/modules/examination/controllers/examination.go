@@ -47,9 +47,9 @@ func (controller *Controller) GetExamination(c *gin.Context) {
 	html.Render(c, http.StatusOK, "modules/examination/html/examination_detail", gin.H{"title": "Show examination", "examination": examination})
 }
 
-func (controller *Controller) CreateExamination(c *gin.Context) {
-	html.Render(c, http.StatusOK, "modules/examination/html/create_examination", gin.H{
-		"title":   "Create Examination",
+func (controller *Controller) CreatePrimaryCatComp(c *gin.Context) {
+	html.Render(c, http.StatusOK, "modules/examination/html/create_primary_cat_exam", gin.H{
+		"title":   "Primary Category Examination",
 		"events":  models.Events,
 		"schools": controller.schoolService.GetSchools(),
 	})
@@ -83,11 +83,11 @@ func (controller *Controller) UpdateExamination(c *gin.Context) {
 	})
 }
 
-func (controller *Controller) Add(c *gin.Context) {
+func (controller *Controller) AddPrimaryCatComp(c *gin.Context) {
 	user := helpers.Auth(c)
 
 	// validate the request
-	var examination models.Examination
+	var examination models.PrimaryCompetition
 	// This will infer what binder to use depending on the content-type header.
 	if err := c.ShouldBind(&examination); err != nil {
 		errors.Init()
@@ -98,17 +98,16 @@ func (controller *Controller) Add(c *gin.Context) {
 		old.Set(c)
 		sessions.Set(c, "old", converters.UrlValuesToString(old.Get()))
 
-		c.Redirect(http.StatusFound, "/examinations/create")
+		c.Redirect(http.StatusFound, "/examination/create")
 		return
 	}
 
 	// Create the article
-	examination, err := controller.examinationService.AddExamination(examination, user)
-	//gg, err := controller.Ge
+	examination, err := controller.examinationService.AddPrimaryCatComp(examination, user)
 
 	// Check if there is any error on the examination creation
 	if err != nil {
-		c.Redirect(http.StatusFound, "/examinations/create")
+		c.Redirect(http.StatusFound, "/examination/create")
 		fmt.Println(err)
 		return
 	}
@@ -297,5 +296,19 @@ func (controller *Controller) GetBlogPosts(c *gin.Context) {
 	html.Render(c, http.StatusOK, "modules/examination/html/blog", gin.H{
 		"title": "Blog",
 		"posts": posts,
+	})
+}
+
+func (controller *Controller) GetBlogPost(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	post, err := controller.examinationService.GetBlogPost(id)
+	if err != nil {
+		c.Redirect(http.StatusFound, "/examination/error")
+		return
+	}
+
+	html.Render(c, http.StatusOK, "modules/examination/html/blog_detail", gin.H{
+		"title": "Blog",
+		"post":  post,
 	})
 }

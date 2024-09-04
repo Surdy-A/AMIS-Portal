@@ -1,4 +1,4 @@
-{{ define "modules/examination/html/create_examination" }} 
+{{ define "modules/examination/html/create_primary_cat_exam" }} 
 {{ template "templates/layouts/html/header" .}} 
 {{ template "templates/layouts/html/navbar" .}} 
 {{ template "templates/layouts/html/sidebar" .}}
@@ -10,12 +10,12 @@
         <div class="card">
           <form
             method="POST"
-            action="/schools/add"
+            action="/examination/add"
             class="needs-validation"
             novalidate=""
           >
-            <div class="card-header">
-              <h4>Register for Examination</h4>
+            <div class="card-header text-center">
+              <h4 class="text-center">Annual Academic Competiton for Primary Category</h4>
             </div>
             <div class="card-body">
               <div class="form-group">
@@ -44,25 +44,89 @@
                 />
                 <div class="invalid-feedback">{{ .ERRORS.zone }}</div>
               </div>
-  
-            <div class="form-group">
-                <label for="participants">Participants</label>
-                <select
-                id="participants"
-                  class="form-control select-width"
-                  name="participants"
-                  multiple="multiple"
-                  placeholder="Participants"
-                  size="10"
-                  value="{{ range .OLD.participants }}{{.}}{{end}}"
-                >
-                  {{ range $key, $value := .events }}
-                  <option id="{{$key}}" value="{{$value}}">{{$value}}</option>
-                  {{ end }}
-                </select>
-                <span class="text-danger">{{ .ERRORS.events }}</span>
+
+              <div class="form-group">
+                <label for="quran">Quran Participant</label>
+                <input
+                  type="quran"
+                  name="quran"
+                  class="form-control"
+                  id="quran"
+                  placeholder="Quran"
+                  value="{{ range .OLD.quran }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.quran }}</div>
               </div>
 
+              <div class="form-group">
+                <label for="quiz_participant1">Quiz Participant 1</label>
+                <input
+                  type="quiz_participant1"
+                  name="quiz_participant1"
+                  class="form-control"
+                  id="quiz_participant1"
+                  placeholder="Quiz Participant 1"
+                  value="{{ range .OLD.quiz_participant1 }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.quiz_participant1 }}</div>
+              </div>
+
+               <div class="form-group">
+                <label for="quiz_participant2">Quiz Participant 2</label>
+                <input
+                  type="quiz_participant2"
+                  name="quiz_participant2"
+                  class="form-control"
+                  id="quiz_participant2"
+                  placeholder="Quiz Participant 2"
+                  value="{{ range .OLD.quiz_participant2 }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.quiz_participant2 }}</div>
+              </div>
+
+              <div class="form-group">
+                <label for="khutbah">Khutbah</label>
+                <input
+                  type="khutbah"
+                  name="khutbah"
+                  class="form-control"
+                  id="khutbah"
+                  placeholder="khutbah"
+                  value="{{ range .OLD.khutbah }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.khutbah }}</div>
+              </div>
+
+              <div class="form-group">
+                <label for="exhibition_1">Exhibition Participant 1</label>
+                <input
+                  type="text"
+                  name="exhibition1_1"
+                  class="form-control"
+                  id="exhibition_1"
+                  placeholder="exhibition_1"
+                  value="{{ range .OLD.exhibition_1 }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.exhibition_1 }}</div>
+              </div>
+              <div class="form-group">
+                <label for="exhibition_2">Exhibition Participant 2</label>
+                <input
+                  type="exhibition_2"
+                  name="exhibition_2"
+                  class="form-control"
+                  id="exhibition_2"
+                  placeholder="Exhibition"
+                  value="{{ range .OLD.exhibition_2 }}{{.}}{{end}}"
+                  required=""
+                />
+                <div class="invalid-feedback">{{ .ERRORS.exhibition_2 }}</div>
+              </div>
               <div class="form-group">
                 <label for="school">School Phone Number</label>
                 <input
@@ -129,57 +193,6 @@
                 <div class="invalid-feedback">{{ .ERRORS.lgacode }}</div>
                 <span class="text-danger">{{ .ERRORS.lgacode }}</span>
               </div>
-              <div class="form-group">
-                <label for="events">Events</label>
-                <select
-                id="school_types"
-                  class="form-control select-width"
-                  name="events"
-                  multiple="multiple"
-                  placeholder="Events"
-                  size="10"
-                  value="{{ range .OLD.events }}{{.}}{{end}}"
-                >
-                  {{ range $key, $value := .events }}
-                  <option id="{{$key}}" value="{{$value}}">{{$value}}</option>
-                  {{ end }}
-                </select>
-                <span class="text-danger">{{ .ERRORS.events }}</span>
-              </div>
-              <div class="form-group">
-                <label for="federal_government_status">Federal Government Status</label>
-                      <select class="form-control select2" id="federal_government_status" name="federal_government_status">
-                      {{ range $key, $value := .federal_gov_status }}
-                      <option value="{{$value}}">{{$value}}</option>{{end}}
-                      </select>
-                <div class="invalid-feedback">{{ .ERRORS.federalgovernmentstatus }}</div>
-                <span class="text-danger">{{ .ERRORS.federalgovernmentstatus }}</span>
-              </div>
-              <div class="form-group">
-                <label for="about">CAC Number</label>
-                <input
-                  type="text"
-                  name="cac_reg_number"
-                  class="form-control"
-                  id="cac_reg_number"
-                  placeholder="CAC Number"
-                  value="{{.cac_reg_number}}"
-                />
-                <div class="invalid-feedback">{{ .ERRORS.cacregnumber }}</div>
-                <span class="text-danger">{{ .ERRORS.cacregnumber }}</span>
-              </div>
-               <div class="form-group">
-                <label for="about">Other Association</label>
-                <input
-                  type="text"
-                  name="association_details"
-                  class="form-control"
-                  id="association_details"
-                  placeholder="Association Details"
-                  value="{{.association_details}}"
-                />
-                <div class="invalid-feedback">{{ .ERRORS.associationdetails }}</div>
-                <span class="text-danger">{{ .ERRORS.associationdetails }}</span>
                <div class="form-group">
                 <label for="school_code">School</label>
                  <select class="form-control select2" id="school_code" name="school_code">
@@ -190,30 +203,6 @@
                 <span class="text-danger">{{ .ERRORS.schoolcode }}</span>
               </div>
               <div class="form-group">
-                      <label for="ownerships">Ownership</label>
-                      <select class="form-control select2" id="ownership" name="ownership">
-                      {{ range $key, $value := .ownerships }}
-                      <option id="ownership"  value="{{$value}}" name="ownership">{{$value}}</option>{{end}}
-                      </select>
-                    </div>
-                <div class="invalid-feedback">{{ .ERRORS.ownership }}</div>
-                <span class="text-danger">{{ .ERRORS.ownership }}</span>
-              </div>
-              <div class="form-group">
-                <label for="logo">Logo</label>
-                <input
-                  type="text"
-                  name="logo"
-                  class="form-control"
-                  id="logo"
-                  placeholder="Logo"
-                  value="{{ range .OLD.logo }}{{.}}{{end}}"
-                  required=""
-                />
-                <div class="invalid-feedback">{{ .ERRORS.logo }}</div>
-                <span class="text-danger">{{ .ERRORS.logo }}</span>
-              </div>
-              <div class="form-group">
                 <label for="lga">LGA</label>
                  <select class="form-control select2" id="lga" name="lga">
                   {{ range $key, $value := .LGANames }}
@@ -222,45 +211,10 @@
                 <div class="invalid-feedback">{{ .ERRORS.lga }}</div>
                 <span class="text-danger">{{ .ERRORS.lga }}</span>
               </div>
-              <div class="form-group">
-                <label for="school type">School Type</label>
-                <select
-                id="school_types"
-                  class="form-control select-width"
-                  name="school_types"
-                  multiple="multiple"
-                  placeholder="School Type"
-                  size="5"
-                  value="{{ range .OLD.school_types }}{{.}}{{end}}"
-                >
-                  {{ range $key, $value := .school_type_lists }}
-                  <option id="{{$key}}" value="{{$value}}">{{$value}}</option>
-                  {{ end }}
-                </select>
-                <span class="text-danger">{{ .ERRORS.schooltypes }}</span>
-              </div>
-              <div class="form-group">
-                <label for="school type">School Operation Type</label>
-                <select
-                  id="school_operation_types"
-                  class="form-control select-width"
-                  name="school_operation_types"
-                  multiple="multiple"
-                  placeholder="School Operation Type"
-                  size="5"
-                  value="{{ range .OLD.school_operation_types }}{{.}}{{end}}"
-                >
-                  {{ range $key, $value := .school_operation_type_lists }}
-                  <option id="{{$key}}" value="{{$value}}">{{$value}}</option>
-                  {{ end }}
-                </select>
-                <span class="text-danger">{{ .ERRORS.schooloperationtypes }}</span>
-              </div>
               <div class="card-footer text-right">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-            </div>
-
+              </div>
             <div class="settingSidebar">
               <a href="javascript:void(0)" class="settingPanelToggle">
                 <i class="fa fa-spin fa-cog"></i>
@@ -271,7 +225,7 @@
                   <div class="p-15 border-bottom">
                     <h6 class="font-medium m-b-10">Select Layout</h6>
                     <div class="selectgroup layout-color w-50">
-                      <label class="selectgroup-item">
+                      <label class="sele ctgroup-item">
                         <input
                           type="radio"
                           name="value"

@@ -11,7 +11,7 @@ import (
 type ExaminationRepositoryInterface interface {
 	GetExaminations(limit int) []models.Examination
 	GetExamination(id int) models.Examination
-	Create(examination models.Examination) models.Examination
+	AddPrimaryCatComp(examination models.PrimaryCompetition) models.PrimaryCompetition
 	CreateGradingExam(examination models.GradingExamination) models.GradingExamination
 	CreateCandidate(examination models.StudentGradingExamInfo) models.StudentGradingExamInfo
 	DeleteExamination(id int) error
@@ -19,6 +19,7 @@ type ExaminationRepositoryInterface interface {
 	GetExaminationsBySchoolCode(schoolCode string) ([]models.GradingExamination, error)
 	GetExaminationBySchoolCode(schoolCode string) (models.GradingExamination, error)
 	GetBlogPosts() []models.Blog
+	GetBlogPost(id int) models.Blog
 }
 
 type ExaminationRepository struct {
@@ -31,10 +32,10 @@ func New() *ExaminationRepository {
 	}
 }
 
-func (examinationRepo *ExaminationRepository) Create(examination models.Examination) models.Examination {
-	var newExamination models.Examination
+func (examinationRepo *ExaminationRepository) AddPrimaryCatComp(examination models.PrimaryCompetition) models.PrimaryCompetition {
+	var newExamination models.PrimaryCompetition
 
-	examinationRepo.DB.Create(&examination).Scan(&newExamination)
+	examinationRepo.DB.Table("primary-competiton").Create(&examination).Scan(&newExamination)
 
 	return newExamination
 }
@@ -117,4 +118,11 @@ func (examinationRepo *ExaminationRepository) GetBlogPosts() []models.Blog {
 	examinationRepo.DB.Raw("SELECT * FROM blogs").Scan(&blogPosts)
 
 	return blogPosts
+}
+
+func (examinationRepo *ExaminationRepository) GetBlogPost(id int) models.Blog {
+	var blogPost models.Blog
+	examinationRepo.DB.First(&blogPost, id)
+
+	return blogPost
 }

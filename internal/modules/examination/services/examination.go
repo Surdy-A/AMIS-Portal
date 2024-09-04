@@ -9,13 +9,14 @@ import (
 	ExaminationResponse "github.com/Surdy-A/amis_portal/internal/modules/examination/responses"
 	SchoolRepository "github.com/Surdy-A/amis_portal/internal/modules/school/repositories"
 	UserResponse "github.com/Surdy-A/amis_portal/internal/modules/user/responses"
+	"gorm.io/gorm"
 )
 
 type ExaminationServiceInterface interface {
 	GetExaminations() []models.Examination
 	GetExamination(id int) (models.Examination, error)
-	StoreAsUser(request requests.StoreRequest, user UserResponse.User) (ExaminationResponse.Examination, error)
-	AddExamination(sch models.Examination, user UserResponse.User) (models.Examination, error)
+	StoreAsUser(request requests.StoreRequest, user UserResponse.User) (ExaminationResponse.PrimaryCompetition, error)
+	AddPrimaryCatComp(sch models.PrimaryCompetition, user UserResponse.User) (models.PrimaryCompetition, error)
 	CreateGradingExam(sch models.GradingExamination, user UserResponse.User) (models.GradingExamination, error)
 	CreateCandidate(sch models.StudentGradingExamInfo, user UserResponse.User) (models.StudentGradingExamInfo, error)
 	DeleteExamination(id int) error
@@ -23,6 +24,7 @@ type ExaminationServiceInterface interface {
 	GetExaminationsBySchoolCode(schoolCode string) ([]models.GradingExamination, error)
 	GetExaminationBySchoolCode(schoolCode string) (models.GradingExamination, error)
 	GetBlogPosts() []models.Blog
+	GetBlogPost(id int) (models.Blog, error)
 }
 
 type ExaminationService struct {
@@ -55,46 +57,50 @@ func (examinationService *ExaminationService) GetExamination(id int) (models.Exa
 	return examination, nil
 }
 
-func (examinationService *ExaminationService) StoreAsUser(examinationrequest requests.StoreRequest, user UserResponse.User) (ExaminationResponse.Examination, error) {
-	var examination models.Examination
-	var response ExaminationResponse.Examination
+func (examinationService *ExaminationService) StoreAsUser(examinationrequest requests.StoreRequest, user UserResponse.User) (ExaminationResponse.PrimaryCompetition, error) {
+	var examination models.PrimaryCompetition
+	var response ExaminationResponse.PrimaryCompetition
 
 	examination.UserID = user.ID
 
-	newExamination := examinationService.examinationRepository.Create(examination)
+	newExamination := examinationService.examinationRepository.AddPrimaryCatComp(examination)
 
 	if newExamination.ID == 0 {
 		return response, errors.New("error in creating the examination")
 	}
 
-	return ExaminationResponse.ToExamination(newExamination), nil
+	return ExaminationResponse.ToPrimaryCompetition(newExamination), nil
 }
 
-func (examinationService *ExaminationService) AddExamination(sch models.Examination, user UserResponse.User) (models.Examination, error) {
-	var examination models.Examination
-
-	examination.Address = sch.Address
-	// examination.Email = sch.Email
-	// examination.Phone = sch.Phone
-	// examination.Website = sch.Website
-	// examination.About = sch.About
-	// examination.StateGovStatus = sch.StateGovStatus
-	// examination.FederalGovernmentStatus = sch.FederalGovernmentStatus
-	// examination.CacRegNumber = sch.CacRegNumber
-	// examination.AssociationDetails = sch.AssociationDetails
-	// examination.LGACode = sch.LGACode
-	// examination.Ownership = sch.Ownership
-	// examination.LGA = sch.LGA
-	// examination.Logo = sch.Logo
-	examination.Paid = false
-
-	examination.UserID = user.ID
-
-	newExamination := examinationService.examinationRepository.Create(examination)
-
-	if newExamination.ID == 0 {
-		return models.Examination{}, errors.New("error in creating the examination")
+func (examinationService *ExaminationService) AddPrimaryCatComp(sch models.PrimaryCompetition, user UserResponse.User) (models.PrimaryCompetition, error) {
+	examination := models.PrimaryCompetition{
+		Quran:        "",
+		Quiz_1:       "",
+		Quiz_2:       "",
+		Khutbah:      "",
+		Exhibition_1: "",
+		Exhibition_2: "",
+		Examination: models.Examination{
+			Model:              gorm.Model{},
+			UserID:             user.ID,
+			User:               sch.User,
+			Address:            sch.Address,
+			Zone:               sch.Zone,
+			SchoolPhoneNumber:  sch.SchoolPhoneNumber,
+			TeacherName:        sch.TeacherName,
+			TeacherPhoneNumber: sch.TeacherName,
+			HeadTeacherName:    sch.HeadTeacherName,
+			LGA:                sch.LGA,
+			Paid:               false,
+			Category:           []string{},
+		},
 	}
+
+	newExamination := examinationService.examinationRepository.AddPrimaryCatComp(examination)
+	if newExamination.ID == 0 {
+		return models.PrimaryCompetition{}, errors.New("error in creating the examination")
+	}
+
 	return newExamination, nil
 }
 
@@ -203,4 +209,14 @@ func (examinationService *ExaminationService) GetExaminationBySchoolCode(schoolC
 func (examinationService *ExaminationService) GetBlogPosts() []models.Blog {
 	blogPosts := examinationService.examinationRepository.GetBlogPosts()
 	return blogPosts
+}
+
+func (examinationService *ExaminationService) GetBlogPost(id int) (models.Blog, error) {
+	post := examinationService.examinationRepository.GetBlogPost(id)
+
+	if post.ID == 0 {
+		return models.Blog{}, errors.New("post not found")
+	}
+
+	return post, nil
 }
