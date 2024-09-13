@@ -2,7 +2,7 @@ app:
   name: "Amis Portal"
 
 server:
-  host: ['https://amis-portal.onrender.com', 'amis-portal.onrender.com', 'render.com']
+  host: "amis-portal.onrender.com"
   port: "8080"
 
 db:
