@@ -6,10 +6,10 @@ server:
   port: "8080"
 
 db:
-  username: root
-  password: Goodman8349**
-  host: 127.0.0.1
-  port: 3306
+  username: amis
+  password: qaibOry3utzA0aZnyh7pYU36apWGqpIp
+  host: "amis-portal.onrender.com"
+  port: 5432
   postgresport: 9920 
-  pusername: postgres
+  pusername: amis
   name: amis_db
