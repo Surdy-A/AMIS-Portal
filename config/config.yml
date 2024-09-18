@@ -2,14 +2,14 @@ app:
   name: "Amis Portal"
 
 server:
-  host: "amis-portal.onrender.com"
+  host: "0.0.0.0"
   port: "8080"
 
 db:
   username: amis
   password: qaibOry3utzA0aZnyh7pYU36apWGqpIp
-  host: "amis-portal.onrender.com"
+  host: "dpg-cri054bv2p9s73bhmfa0-a"
   port: 5432
-  postgresport: 9920 
+  postgresport: 5432 
   pusername: amis
   name: amis_db
