@@ -16,7 +16,7 @@ func Connect() {
 	// 	cfg.DB.Name,
 	// )
 
-	psqlInfo := cfg.DB.Pusername + "://" + cfg.DB.Pusername + ":" + cfg.DB.Password + "@" + cfg.DB.Host + "/" + cfg.DB.Name + "?sslmode=disable"
+	psqlInfo := cfg.DB.Pusername + "://" + cfg.DB.Pusername + ":" + cfg.DB.Password + "@" + cfg.DB.Host + "/" + cfg.DB.Name + "?sslmode=required"
 
 	// pdsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai",
 	// 	cfg.DB.Host,
