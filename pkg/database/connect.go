@@ -2,8 +2,11 @@ package database
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/Surdy-A/amis_portal/pkg/config"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func Connect() {
@@ -16,24 +19,24 @@ func Connect() {
 	// 	cfg.DB.Name,
 	// )
 
-	psqlInfo := cfg.DB.Pusername + "://" + cfg.DB.Pusername + ":" + cfg.DB.Password + "@" + cfg.DB.Host + "/" + cfg.DB.Name + "?sslmode=required"
+	//psqlInfo := cfg.DB.Pusername + "://" + cfg.DB.Pusername + ":" + cfg.DB.Password + "@" + cfg.DB.Host + "/" + cfg.DB.Name + "?sslmode=required"
+	pdsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=require",
+		cfg.DB.Host,
+		cfg.DB.Pusername,
+		cfg.DB.Password,
+		cfg.DB.Name,
+		cfg.DB.Postgresport,
+	)
+	fmt.Println(pdsn)
 
-	// pdsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai",
-	// 	cfg.DB.Host,
-	// 	cfg.DB.Pusername,
-	// 	cfg.DB.Password,
-	// 	cfg.DB.Name,
-	// 	cfg.DB.Postgresport,
-	// )
-	// fmt.Println(dsn)
-	fmt.Println(psqlInfo)
+	//fmt.Println(psqlInfo)
 
-	//db, err := gorm.Open(postgres.Open("postgresql://amis:qaibOry3utzA0aZnyh7pYU36apWGqpIp@amis-portal.onrender.com/amis_db"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(pdsn), &gorm.Config{})
 
-	// if err != nil {
-	// 	log.Fatal("Cannot connect to database")
-	// 	return
-	// }
+	if err != nil {
+		log.Fatal("Cannot connect to database")
+		return
+	}
 
-	// DB = db
+	DB = db
 }

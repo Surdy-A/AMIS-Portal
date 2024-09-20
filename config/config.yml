@@ -13,3 +13,4 @@ db:
   postgresport: 5432 
   pusername: amis
   name: amis_db
+ 
